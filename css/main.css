@@ -1,0 +1,265 @@
+
+
+*,*:before,*:after{
+	box-sizing: inherit;
+}
+
+html {
+	font-size:62.5%;
+    box-sizing: border-box;
+
+    font-family: 'Roboto', sans-serif;
+
+}
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* COTENU ET CLASS HEADER FOOTER */
+.content{
+    z-index: 1;
+    max-width: 80%;
+    margin: 0 auto;
+    text-align: justify;
+    transition: all 2.0s ease;
+
+}
+
+.fullDisplay{
+    max-width: 100%;
+    padding: 0 0;
+}
+header{
+    margin-bottom: 3rem;
+
+}
+header, footer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    opacity: 1;
+    background-color: white;
+}
+
+
+
+/*JS*/
+.noDisplay{
+    display: none;
+}
+.noOpacity{
+    opacity: 0;
+}
+.jsFixed{
+    position: absolute
+}
+
+.logo{
+    transition: all 0.1s ease-in;
+    width:100%;
+    margin: 0 auto;
+    z-index: 100;
+    height: 100%;
+
+}
+.logoScrolled{
+    min-width: 30%;
+    width: 30%;
+    padding: 2rem 6rem;
+    margin-bottom: 2rem;
+}
+
+/* FIN JS */
+
+
+/*GENERAL */
+*>p {
+    font-weight:100;
+    font-size: 1.9rem;
+    font-stretch: expanded;
+}
+
+/* NAV HAUT */
+
+
+header nav{
+    text-decoration: none;
+    width: 100%;
+    text-align:center;
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+
+
+}
+
+header nav a {
+
+    font-size: 2.0rem;
+    text-decoration: none;
+    font-weight: 400;
+
+    opacity: 1;
+    padding: 2rem 8rem;
+    transition: all 0.8s ease-out;
+}
+
+header nav a:hover{
+    font-size: 2.5rem;
+    padding: 1.5rem 7.5rem;
+}
+header nav a:first-child{
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    border-left: 1px solid white;
+
+}
+
+header nav a:first-child:hover{
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+}
+
+header nav >a + a:not(:last-child){
+
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+    border-left: 1px solid black;
+
+}
+
+header nav>a + a:not(:last-child):hover{
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+
+}
+
+header nav>a:last-child{
+    border-top: 2px solid white;
+    border-right:1px solid white;
+    border-bottom: 2px solid white;
+    border-left: 1px solid black;
+
+}
+
+header nav>a:last-child:hover{
+    border-top: 2px solid black;
+    border-right:1px solid black;
+    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+
+}
+/*NAV BAS */
+
+
+/* CONTENU MILIEU */
+
+/* PITCH */
+.pitch {
+    
+    height: 50rem;
+
+    background-image: url('../img/acceuil-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+    text-align: center;
+
+    display: flex;
+    flex-flow: row nowrap;
+    z-index: 1;
+}
+.pitch article{
+    padding-top: 15rem;
+    width: 100%
+}
+.pitch h1{
+    font-size: 6rem;
+    margin-top: 2rem;
+    letter-spacing: 1rem;
+}
+.pitch div:first-child{
+    background: linear-gradient(180deg, rgba(255,255,255,1)  60%,rgba(255,255,255,0) 100%);
+    height: 2rem;
+
+}
+.pitch div:last-child{
+    background: linear-gradient(180deg, rgba(255,255,255,1)  60%,rgba(255,255,255,0) 100%);
+    height: 2rem;
+}
+
+
+
+/* OVERVIEW */
+
+
+#slider1{
+    width:55%;
+
+}
+.overView article{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+
+}
+
+
+.overView article span.fullDisplay{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.21);
+    height: 1rem;
+
+}
+.overView article h2{
+
+    width: 100%;
+    font-size: 4rem;
+    text-align: left;
+    text-transform: uppercase;
+
+}
+
+.overView article h2:after{
+    content: " ";
+    width: 2.5%;
+    height: 0.4rem;
+    display: inline-block;
+    margin: 1rem;
+    background-color: black;
+    transition: width 1.2s cubic-bezier(0,.61,1,.94);
+}
+.overView article h2:hover:after{
+    content: " ";
+    width: 70%;
+    height: 0.4rem;
+    display: inline-block;
+    margin: 1rem;
+    background-color: black;
+}
+
+
+.overView article span{
+    width: 35%;
+}
+.overView article span p{
+    margin:0;
+}
+
+.overView article span ul{
+    display: inline-block;
+    width: 100%;
+
+    text-decoration: none;
+}
+.overView article span ul li{
+    width: 75%;
+
+    list-style: none;
+
+    padding: 5rem 0;
+}
