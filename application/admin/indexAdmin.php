@@ -1,13 +1,23 @@
 <?php
 
-require('lib/bdd.lib.php');
+require('model.php');
 
-connexion();
 
+
+$reals =getRealisations();
+
+
+$view = 'tpl/indexAdminView.phtml';
 
 include('adminLayout.phtml');
 
-require('indexView.php');
-$view = 'tpl/indexAdminView.phtml';
+
+
+
+
+
+
+
+
 
 

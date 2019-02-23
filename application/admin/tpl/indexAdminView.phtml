@@ -1,58 +1,33 @@
-<div class="w-75 p-3 mx-auto mt-2 border border-success">
-<h1 class="display-4">Réalisations</h1>
-<div class="table-wrapper-scroll-y">
+  <div class="w-75 p-3 mx-auto mt-2 border border-success">
+  <h1 class="display-4">Réalisations</h1>
+            <div class="table-wrapper-scroll-y">
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nom</th>
-      <th scope="col">Description</th>
-      <th scope="col">Pièce Jointe</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Nessie</td>
-      <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nam ducimus, voluptatem commodi reprehenderit consequuntur vero perferendis inventore deleniti dolorem.</td>
-      <td>img</td>
-      <td><button type="button" class="btn btn-sm btn-primary">Modifier</button><button type="button" class="btn btn-danger btn-sm">Supprimer</button></td>
-    </tr>
-    <tr>
-    <tr>
-      <th scope="row">1</th>
-      <td>Nessie</td>
-      <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nam ducimus, voluptatem commodi reprehenderit consequuntur vero perferendis inventore deleniti dolorem.</td>
-      <td>img</td>
-      <td><button type="button" class="btn btn-primary btn-sm">Modifier</button><button type="button" class="btn btn-danger btn-sm">Supprimer</button></td>
-    </tr>    <tr>
-      <th scope="row">2</th>
-      <td>Nessie</td>
-      <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nam ducimus, voluptatem commodi reprehenderit consequuntur vero perferendis inventore deleniti dolorem.</td>
-      <td>img</td>
-      <td><button type="button" class="btn btn-primary btn-sm">Modifier</button><button type="button" class="btn btn-danger">Supprimer</button></td>
-    </tr>    <tr>
-      <th scope="row">3</th>
-      <td>Nessie</td>
-      <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nam ducimus, voluptatem commodi reprehenderit consequuntur vero perferendis inventore deleniti dolorem.</td>
-      <td>img</td>
-      <td><button type="button" class="btn btn-primary btn-sm">Modifier</button><button type="button" class="btn btn-danger">Supprimer</button></td>
-    </tr>    <tr>
-      <th scope="row">4</th>
-      <td>Nessie</td>
-      <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero nam ducimus, voluptatem commodi reprehenderit consequuntur vero perferendis inventore deleniti dolorem.</td>
-      <td>img</td>
-      <td><button type="button" class="btn btn-primary">Modifier</button><button type="button" class="btn btn-danger">Supprimer</button></td>
-    </tr>
-  </tbody>
-</table>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Pièce Jointe</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($reals as $real):?>
+                          <tr>
+                              <td><?=$real['idrealisations']?></td>
+                              <td><?=$real['real_name']?></td>
+                              <td><?=$real['real_pres']?></td>
+                              <td><?=$real['real_photos']?></td>
+                          </tr>
+                <?php endforeach;?>
+              </tbody>
+            </table>
 
-</div>
+            </div>
 
 
-</div>
+  </div>
 
 <div class="w-75 p-3 mx-auto mt-4 border border-success">
 <h1 class="display-4">Impressions</h1>

@@ -1,16 +1,23 @@
 <?php
 /*
 *
-*
+
 */
+
+require('config/config.php');
+
+
 function connexion()
 {
 
-
+    try {
     $dbh = new PDO(DB_DSN,DB_USER,DB_PASS);
     //On dit à PDO de nous envoyer une exception s'il n'arrive pas à se connecter ou s'il rencontre une erreur
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    }
+    catch (PDOException $e) {
+        echo 'Échec lors de la connexion : ' . $e->getMessage();
+    }
     return $dbh;
 }
 
@@ -23,3 +30,4 @@ function userConnect()
         exit;
     }
 }
+

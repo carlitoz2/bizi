@@ -1,0 +1,15 @@
+<section>
+
+    <form id="addReal" method="POST" action="addReal.php">
+        <label for="real_name">Nom de la réalisation</label>
+        <input id="real_name" name="real_name" type="text">
+
+        <label for="real_pres">Présentation de la réalisation</label>
+        <input id="textarea" name="real_pres" type="text">
+
+        <label for="real_photos_1">Fichier:</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+        <input type="file" name="imageArticle" id="imageArticle" />
+
+        <input type="submit" value="valider">
+</section>
