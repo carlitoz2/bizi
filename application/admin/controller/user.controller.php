@@ -1,41 +1,60 @@
 <?php
 
-include('../addUser.php');
-include('../classes/loader.php');
-$userP = $user->getpassword();
-$userPs = $user->getpseudo();
+include('classes/loader.php'); //Chargement des classes
+$userP = $user->get_password(); // Récupère le password de User
+$userPs = $user->get_pseudo(); // Récupère le pseudo de User
 
-$db = new dataBase();
 
-$sqlVerif = 'SELECT `user_pseudo` FROM `users`';
-try{
+
+$db = new dataBase(); // Initialise la DB
+
+
+try{ // Requête pour récupérer tous les pseudos
+    $sqlVerif = 'SELECT `user_pseudo` FROM `users`';
     $pseudos = $db->query($sqlVerif);
-}
 
-    catch(PDOException $e){
+}
+catch(PDOException $e){
     //Si une exception est envoyée par PDO (exemple : serveur de BDD innaccessible) on arrive ici
     echo 'Une erreur de connexion a eu lieu :'.$e->getMessage();
 
 }
 
+foreach($pseudos as $pseudo =>$value){ // Pour chaque pseudo
+    if($userPs == $value['user_pseudo']){ // Si le pseudo du User est déja dans la DB
 
-foreach($pseudos as $pseudo){
-    if($userPs === $pseudo){
-        
-        $message.= 'Pseudo déjà pris!;';
-        $flashbag->add($message);      
+        $message = 'Pseudo déjà pris!';
+        $flashbag->add($message);  
+
+       header('Location:addUser.php'); // Retour à l'ajout Utilisateur
+       exit(); // Fermeture
     }
-    else{    
-        $sqlAdd = 'INSERT INTO `users`(`user_pseudo`, `user_password`, `id_user`) VALUES (:user_pseudo, :user_password, NULL)';
-        
-        $sql->bindParam(":user_pseudo", $userP);
-        $sql->bindParam(":user_password", $userPs);
-        
-        $db->query($sqlAdd);
-
-        header('../login.php');
-        exit;
-        }
 }
+   
+        try{ // Requête  pour ajouter un utilisateur
+
+            $sqlAdd = 'INSERT INTO users( id_user, user_pseudo, user_password) VALUES ( NULL, :user_pseudo, :user_password )'; // Requête
+            
+            
+            $req = $db->prepare($sqlAdd);  // méthode de l'objet DB
+
+            if(isset($req) && $req !== FALSE){ //Binding des paramètres
+                $req->bindParam(':user_pseudo', $userPs, PDO::PARAM_STR); 
+                $req->bindParam(':user_password',$userP, PDO::PARAM_STR);
+                $req->execute();
+
+                header('Location:login.php'); // Envoi à la page login
+                exit(); // Fermeture
+            }
+            
+            else{ echo 'Ajout impossible';} 
+        }
+
+        catch(Exception $e){
+            echo 'Une erreur autre que co a eu lieu :'.$e->getMessage();
+        }
+        
+        
+
 
 

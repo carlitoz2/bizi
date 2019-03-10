@@ -24,9 +24,21 @@ class Database {
         }
         return $this->pdo;
     }
- 
+    
+    
+
     public function query($sql) {
         $req = $this->getPDO()->query($sql);
         return $req->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    public function prepare($sql){
+        $req = $this->getPDO()->prepare($sql);
+        return $req;
+    }
+
+    public function execute($req){
+        $sth = $this->getPDO()->execute($req);
+        return $sth;
     }
 }

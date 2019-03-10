@@ -1,94 +1,47 @@
 <?php
 session_start();
 
-//include('config/config.php');
 include('lib/bdd.lib.php');
+include('classes/loader.php');
 
 //$vue='login'; pas de vue, voir en bas de fichier
 $title = 'Se connecter';
 
 //Initialisation des erreurs à false
-$erreur = '';
-
-//Tableau correspondant aux valeurs à récupérer dans le formulaire.
-$values = [
-    'email'=>'',
-    'password'=>''
-];
-
-$user = new User(
+if (isset($_SESSION['connect']) && $_SESSION['connect'] === true){
+    header('Location:addReal.php');
+    exit();
+}
     
-  if(array_key_exists('pseudo', $_POST) && $_POST['pseudo'] == htmlspecialchars($_POST['pseudo']);)  
+if(array_key_exists('pseudo', $_POST)){
+    $userL = new User($pseudo= null , $password = null);
+
+    if(isset($_POST['pseudo']) && $_POST['pseudo'] != '') 
     {
-        
-    }
+        $pseudo = htmlspecialchars($_POST['pseudo']);
+        $userL->set_pseudo($pseudo); 
 
-
-);
-
-
-$tab_erreur =
-[
-    'email'=>'Email vide, merci de préciser votre email',
-    'password'=>'Password vide, merci de préciser votre mot de passe'
-];
-
-try
-{
-
-    if(array_key_exists('email',$_POST))
-    {
-        foreach($values as $champ => $value)
+        if(isset($_POST['password']) && $_POST['password'] != '') 
         {
-            if(isset($_POST[$champ]) && trim($_POST[$champ])!='')
-                $values[$champ] = $_POST[$champ];
-            elseif(isset($tab_erreur[$champ]))   
-                $erreur.= '<br>'.$tab_erreur[$champ];
-            else
-                $values[$champ] = '';
+            $password = htmlspecialchars($_POST['password']);
+            $userL->set_password($password); 
         }
-
-        if(!filter_var($_POST['email'],FILTER_VALIDATE_EMAIL))
-            $erreur.= '<br> Vous devez saisir un email valide !';
-
-        if($erreur =='')
-        {
-            //Connexion
-            $dbh = connexion();
-
-            /**2 : Prépare ma requête SQL */
-            $sth = $dbh->prepare('SELECT * FROM user WHERE user_email = :email');
-
-            /** 3 : executer la requête - on utilise pas le tableau values car il contient email et password et pas que l'email */
-            $sth->execute(array('email'=>$values['email']));
-
-            $user = $sth->fetch(PDO::FETCH_ASSOC);
-        
-            /* Si l'utilisateur existe dans la base de données avec son email 
-            et que le mot de passe match ! */
-            if($user != false && password_verify($values['password'],$user['user_password']))
-            {
-                //On peut connecter l'utilisateur et garder quelques info en session
-                $_SESSION['connect'] = true; 
-                $_SESSION['user'] = ['id'=>$user['user_id'],'name'=>$user['user_firstname'].' '.$user['user_lastname'],'role' => $user['user_role']];
-                //On redirige vers la page d'accueil de l'admin
-                header('Location:indexAdmin.php');
-                exit();//exit after redirect !!
-            }
-            else
-            {
-                $erreur.='<br>Connexion impossible. Vérifiez vos identifiants !';
-            }
-        }
-
+        else{
+            $message = 'Veuillez entrer votre Mot de passe';
+            $flashbag->add($message);
+        } 
     }
-}
-catch(PDOException $e)
-{
-    $erreur.='<br>Une erreur de connexion a eu lieu :'.$e->getMessage();
+    else{
+        $message = 'Veuillez entrer votre pseudo';
+        $flashbag->add($message);
+    }
+   
 }
 
-/*Le layout du login est diiférent du layout du reste de l'admin : la vue login inclu tout le HTML !! */
+
+
+
+/*Le layout du login est différent du layout du reste de l'admin : la vue login inclut tout le HTML !! */
 include('tpl/loginView.phtml');
 
 

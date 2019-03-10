@@ -6,8 +6,8 @@ class User
     protected $_password;
 
     function __construct($pseudo,$password){
-        $this->pseudo = $pseudo;
-        $this->password = $password;
+        $this->_pseudo = $pseudo;
+        $this->_password = $password;
     }
     
 
