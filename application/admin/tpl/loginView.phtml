@@ -4,7 +4,7 @@
   <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -20,19 +20,20 @@
     <script src="../../js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="../../css/bootstrap-4.2.1-dist/table.css" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/bootstrap-4.2.1-dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/main.css" crossorigin="anonymous">
     <script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   </head>
 
   <body>
 
     <!-- Page Content -->
-    <div class="container d-flex justify-content-center">
+    <div class="container d-flex justify-content-center text-center">
 
         <div class="col-sm-4 col-sm-offset-4">
           <div>
-            <img src="../../img/logo.png" width="370" height="200">
+            <img src="../../img/logo.png" id="logoLogo">
           </div>
-          <h1 class="mt-5"><?=$title?></h1>
+          <h1 class="mt-5 p-4"><?=$title?></h1>
 
 			<form role="form" action="login.php" method="POST">
 		  

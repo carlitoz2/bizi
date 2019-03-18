@@ -1,8 +1,21 @@
 <?php
-session_start();
 
 include('lib/bdd.lib.php');
 include('classes/loader.php');
+
+$session = new Session;
+
+$session->start();
+
+
+$key ="connect";
+$child = "true";
+
+$session->read($key,$child);
+
+
+
+
 
 //$vue='login'; pas de vue, voir en bas de fichier
 $title = 'Se connecter';
@@ -25,6 +38,7 @@ if(array_key_exists('pseudo', $_POST)){
         {
             $password = htmlspecialchars($_POST['password']);
             $userL->set_password($password); 
+            include 'controller/login.controller.php';
         }
         else{
             $message = 'Veuillez entrer votre Mot de passe';

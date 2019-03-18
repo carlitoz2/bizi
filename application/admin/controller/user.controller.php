@@ -12,7 +12,6 @@ $db = new dataBase(); // Initialise la DB
 try{ // Requête pour récupérer tous les pseudos
     $sqlVerif = 'SELECT `user_pseudo` FROM `users`';
     $pseudos = $db->query($sqlVerif);
-
 }
 catch(PDOException $e){
     //Si une exception est envoyée par PDO (exemple : serveur de BDD innaccessible) on arrive ici
@@ -31,28 +30,28 @@ foreach($pseudos as $pseudo =>$value){ // Pour chaque pseudo
     }
 }
    
-        try{ // Requête  pour ajouter un utilisateur
+try{ // Requête  pour ajouter un utilisateur
 
-            $sqlAdd = 'INSERT INTO users( id_user, user_pseudo, user_password) VALUES ( NULL, :user_pseudo, :user_password )'; // Requête
+    $sqlAdd = 'INSERT INTO users( id_user, user_pseudo, user_password) VALUES ( NULL, :user_pseudo, :user_password )'; // Requête
             
             
-            $req = $db->prepare($sqlAdd);  // méthode de l'objet DB
+        $req = $db->prepare($sqlAdd);  // méthode de l'objet DB
 
-            if(isset($req) && $req !== FALSE){ //Binding des paramètres
-                $req->bindParam(':user_pseudo', $userPs, PDO::PARAM_STR); 
-                $req->bindParam(':user_password',$userP, PDO::PARAM_STR);
-                $req->execute();
+        if(isset($req) && $req !== FALSE){ //Binding des paramètres
+            $req->bindParam(':user_pseudo', $userPs, PDO::PARAM_STR); 
+            $req->bindParam(':user_password',$userP, PDO::PARAM_STR);
+            $req->execute();
 
-                header('Location:login.php'); // Envoi à la page login
-                exit(); // Fermeture
-            }
-            
-            else{ echo 'Ajout impossible';} 
+            header('Location:login.php'); // Envoi à la page login
+            exit(); // Fermeture
         }
+        
+        else{ echo 'Ajout impossible';} 
+    }
 
-        catch(Exception $e){
-            echo 'Une erreur autre que co a eu lieu :'.$e->getMessage();
-        }
+catch(Exception $e){
+        echo 'Une erreur autre que co a eu lieu :'.$e->getMessage();
+}
         
         
 
