@@ -3,9 +3,14 @@
 include('lib/bdd.lib.php');
 include('classes/loader.php');
 
-$session = new Session;
+$session = new Session();
+$flashbag = new Flashbag();
 
-$session->start();
+//$session->start();
+
+echo'<pre>';
+var_dump($_SESSION);
+echo'</pre>';
 
 
 $key ="connect";
