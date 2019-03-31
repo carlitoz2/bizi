@@ -13,9 +13,7 @@ if($flash == true){
         echo $message;
     }
 }
-//var_dump($flash);
-// var_dump($_POST['password'].'  '.$_POST['password_confirm']);
-//var_dump($_POST);
+
 
 $user = new User($pseudo= null , $password = null);
 

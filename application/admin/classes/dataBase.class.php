@@ -8,7 +8,7 @@ class Database {
     private $db_host;
     private $pdo;
  
-    public function __construct($db_host = 'localhost', $db_name = 'busy', $db_user = 'root', $db_pass = '') {
+    public function __construct($db_host = 'localhost:3307', $db_name = 'busy', $db_user = 'root', $db_pass = '') {
         $this->db_name   = $db_name;
         $this->db_user   = $db_user;
         $this->db_pass   = $db_pass;

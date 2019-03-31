@@ -5,6 +5,7 @@ $userP = $user->get_password(); // Récupère le password de User
 $userPs = $user->get_pseudo(); // Récupère le pseudo de User
 
 
+$flashbag->fetchmessages();
 
 $db = new dataBase(); // Initialise la DB
 
@@ -40,6 +41,7 @@ try{ // Requête  pour ajouter un utilisateur
         if(isset($req) && $req !== FALSE){ //Binding des paramètres
             $req->bindParam(':user_pseudo', $userPs, PDO::PARAM_STR); 
             $req->bindParam(':user_password',$userP, PDO::PARAM_STR);
+            /* */
             $req->execute();
 
             header('Location:login.php'); // Envoi à la page login

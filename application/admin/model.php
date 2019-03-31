@@ -1,55 +1,39 @@
 <?php
 
 require('lib/bdd.lib.php');
+include('classes/loader.php');
 
+$flashbag = new FlashBag;
 
-
+$db= new DataBase;
 $reals = [];
 
 function getRealisations()
 {
-
-	try {
-		$dbh = new PDO(DB_DSN,DB_USER,DB_PASS);
-			//On dit à PDO de nous envoyer une exception s'il n'arrive pas à se connecter ou s'il rencontre une erreur
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		}
-	catch (PDOException $e) {
-		echo 'Échec lors de la connexion : ' . $e->getMessage();
-		}
-	catch(Exception $e)
-	{
-		die('Erreur : '.$e->getMessage());
-	}
-
-	$req = $dbh->prepare('SELECT * FROM realisations');
+	$db= new DataBase;
+	$req = $db->prepare('SELECT * FROM realisations');
 	$req->execute();
 	$reals = $req->fetchAll(PDO::FETCH_ASSOC);
 
 	return $reals;
 	
 }
-function addRealisation()
+function addRealisation($name,$pres,$photo1,$photo2,$photo3)
 {
-	try {
-		$dbh = new PDO(DB_DSN,DB_USER,DB_PASS);
-			//On dit à PDO de nous envoyer une exception s'il n'arrive pas à se connecter ou s'il rencontre une erreur
-		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		}
-	catch (PDOException $e) {
-		echo 'Échec lors de la connexion : ' . $e->getMessage();
-		}
-	catch(Exception $e)
-	{
-		die('Erreur : '.$e->getMessage());
-	}
+	$db= new DataBase;
+	$query ='INSERT INTO realisations (`idrealisations`,`real_name`,`real_pres`,`real_photo_1`,`real_photo_2`,`real_photo_3`) VALUES (NULL,:real_name, :real_pres, :real_photo_1, :real_photo_2, :real_photo_3)';
+	$flashbag = new FlashBag;  
+	$req = $db->prepare($query);
+	$req->bindParam(':real_name', $name, PDO::PARAM_STR); 
+	$req->bindParam(':real_pres',$pres, PDO::PARAM_STR);
+	$req->bindParam(':real_photo_1', $photo1, PDO::PARAM_STR); 
+	$req->bindParam(':real_photo_2',$photo2, PDO::PARAM_STR);
+	$req->bindParam(':real_photo_3', $photo3, PDO::PARAM_STR); 
 
-	$query ='INSERT INTO realisations (`real_name`,`real_pres`,`real_photos`) VALUES ( ?, ?, ?)';
-        $resultSet = $dbh->prepare($query);
-		$resultSet->execute([$_POST['real_name'], $_POST['real_pres'], $_POST['real_photos']]);
+		$resultSet->execute($name, $pres, $photo1, $photo2, $photo3);
 		
 		if ($resultSet){
-			echo 'on est bon';
+			$flashbag->add('La réalisation a bien été ajoutée');
 		}
 		else{
 			echo 'echec';

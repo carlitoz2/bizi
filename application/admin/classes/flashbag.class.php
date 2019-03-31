@@ -17,18 +17,35 @@ class FlashBag
         }
     }
 
+
+     /**
+     * Ajoute un message dans le flash-bag
+     * 
+     * @param string $message contenu du message.
+
+     */
     public function add($message)
     {
         // Add the specified message at the end of the flash bag.
         array_push($_SESSION['flash-bag'], $message);
     }
+     /**
+     *Récupère le dernier message dans le flash-bag et le supprime
+     * 
+     * @param void
 
+     */
     public function fetchMessage()
     {
         // Consume the oldest flash bag message.
         return array_shift($_SESSION['flash-bag']);
     }
+     /**
+     *Récupère les message dans le flash-bag et les supprime
+     * 
+     * @param void
 
+     */
     public function fetchMessages()
     {
         // Consume all the flash bag messages.
@@ -39,10 +56,14 @@ class FlashBag
 
         return $messages;
     }
+     /**
+     *Vérifie la présence de messages dans le flash-bag.
+     * 
+     * @param void
 
+     */
     public function hasMessages()
     {
-        // Do we have some messages in the flash bag ?
         return empty($_SESSION['flash-bag']) == false;
     }
 }
