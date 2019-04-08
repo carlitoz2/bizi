@@ -1,7 +1,7 @@
 
 
-    <form id="addReal" method="POST" action="addReal.php" >
-    <section class="form-group container d-flex justify-content-center text-center col-sm-8 col-sm-offset-8">
+    <form id="addReal" enctype="multipart/form-data" method="POST" action="addReal.php"  class="form-group container d-flex  text-center col-sm-8 col-sm-offset-8">
+    <section>
 
     <div class="form-group"> 
         <label for="real_name">Nom de la réalisation</label>
@@ -9,12 +9,23 @@
     </div>
     <div class="form-group">
         <label for="real_pres">Présentation de la réalisation</label>
-        <input id="textarea" name="real_pres" type="text">
+        <input id="real_pres" name="real_pres" type="textarea">
     </div>
     <div class="form-group">
         <label for="real_photos_1">Fichier:</label>
-        <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-        <input type="file" name="imageArticle" id="imageArticle" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="15000000" />
+        <input type="file" name="real_photos[]" id="real_photos_1" />
+        <p>'Fichiers de type '
+    </div>
+    <div class="form-group">
+        <label for="real_photos_2">Fichier:</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="15000000" />
+        <input type="file" name="real_photos[]" id="real_photos_2" />
+    </div>
+    <div class="form-group">
+        <label for="real_photos_3">Fichier:</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="15000000" />
+        <input type="file" name="real_photos[]" id="real_photos_3" />
     </div>
             <input type="submit" value="valider">
             </section>

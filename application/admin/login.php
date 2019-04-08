@@ -22,10 +22,10 @@ $session->read($key,$child);
 $title = 'Se connecter';
 
 //Initialisation des erreurs à false
-// if (isset($_SESSION['connect']) && $_SESSION['connect'] === true){
-//     header('Location:addReal.php');
-//     exit();
-// }
+if (isset($_SESSION['connect']) && $_SESSION['connect'] === true){
+    header('Location:indexAdmin.php');
+    exit();
+}
     
 if(array_key_exists('pseudo', $_POST)){
     $userL = new User($pseudo= null , $password = null);
