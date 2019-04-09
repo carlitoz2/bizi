@@ -1,104 +1,89 @@
 <?php
 require('classes/loader.php');
-echo'<pre>';
-print_r($_FILES);
-echo'</pre>';
 $flashbag = new FlashBag;
-$flashbag->fetchMessages();
-
-require('model.php');
-
-if(isset($_POST['real_name']) && trim($_POST['real_name']) != '' ){
-    $name= trim(htmlspecialchars($_POST['real_name']));
-}
-else{
-    $flashbag->add('Veuillez ajouter un Nom pour votre réalisation');
-
-}
-
-if(isset($_POST['real_pres'])  && trim($_POST['real_pres']) != ''){
-    $pres = htmlspecialchars($_POST['real_pres']);
-}
-else{
-    $flashbag->add('Veuillez ajouter une Présentation pour votre réalisation');
-}
-
-if(!empty($_POST['real_photo_1']) && $_POST['real_photo_1'] != '' ){
-    $photo1 = $_POST['real_photo_1'];
-} 
-else {
-    $flashbag->add('Veuillez ajouter au moins UNE photo à votre réalisation');
-}
-
-if(!empty($_POST['real_photo_2']) && $_POST['real_photo_2'] != '' ){
-    $photo2 = $_POST['real_photo_2'];
-} 
-else {
-    $photo2 ='0';
-}
-if(!empty($_POST['real_photo_3']) && $_POST['real_photo_3'] != '' ) {
-    $photo3 = $_POST['real_photo_3'];
-}
-else{
-    $photo3 ='0';
-}
+echo '<pre>';
+print_r($flashbag->fetchMessages());
+echo '</pre>';
 
 
+$view='tpl/addRealView.phtml';
+$title = 'Ajouter un article';
 
-$extensionsOk = ['jpeg','jpg','png']; 
+//Initialisation des erreurs à false
+$erreur = '';
 
-$fileType = $_FILES['myfile']['type'];
-$fileExtension = strtolower(end(explode('.',$fileName)));
+$dossierUpload ="uploads\img_reals";
 
-if (! in_array($fileExtension,$fileExtensions)) {
-    $flashbag->add('Ce type de fichier n\'est pas autorisé, il faut un jpeg,jpg ou png');
-}
+//Tableau correspondant aux valeurs à récupérer dans le formulaire (hors fichiers)
+$values = [
+'real_name'=>'',
+'real_pres'=>''
+];
 
-if ($fileSize > 15000000) {
-    $flashbag->add("Le fichier fait plus de 15MB, c'est trop; Le fichier doit faire moins.");
-}
+$tab_erreur =
+[
+'real_name'=>'Le titre doit être rempli !',
+'real_pres'=>'Le contenu est vide !'
+];
+
+$db = new DataBase;
+
+    if(array_key_exists('real_name',$_POST))
+    {
+    
+        //On valide que tous les champs ne sont pas vides sinon on référence un erreur !
+        foreach($values as $champ => $value)
+        {
+            if(isset($_POST[$champ]) && trim($_POST[$champ])!='')
+                $values[$champ] = $_POST[$champ];
+            elseif(isset($tab_erreur[$champ]))   
+                $erreur.= '<br>'.$tab_erreur[$champ];
+            else
+                $values[$champ] = NULL;
+        }
 
 
-// ( [real_photos] => 
-// Array ( [name] => Array ( [0] => code.PNG [1] => code.PNG [2] => code.PNG ) 
-// [type] => Array ( [0] => image/png [1] => image/png [2] => image/png )
-//  [tmp_name] => Array ( [0] => C:\xampp\tmp\php546E.tmp [1] => C:\xampp\tmp\php546F.tmp [2] => C:\xampp\tmp\php5470.tmp )
-//  [error] => Array ( [0] => 0 [1] => 0 [2] => 0 )
-//  [size] => Array ( [0] => 57386 [1] => 57386 [2] => 57386 ) ) )
+        /** SI pas d'erreurs on fini la préparation des données et on save ! */
+        if($erreur =='')
+        {
+            //Affectation de la date d'enregistrement
+            $values['dateCreated']  = date('Y-m-d h:i:s');
+            
+            //On déplace le fichier transmis pour l'image d'entêt de l'article dans le répertoire upload/articles/ 
+            if (isset($_FILES["real_photo"]) && $_FILES["real_photo"]["error"] == UPLOAD_ERR_OK) 
+            {
+                $tmp_name = $_FILES["real_photo"]["tmp_name"];
+                $name = basename($_FILES["real_photo"]["name"]);
+                if(move_uploaded_file($tmp_name,$dossierUpload.$name))
+                    $values['picture'] = $name;
+                else
+                    $values['picture'] = NULL;
+            }
+            else
+                $values['picture'] = NULL;
 
+            $values['userId'] = $_SESSION['user']['id'];
 
+            var_dump($values);
+            /**2 : Prépare ma requête SQL */
+            $sth = $db->prepare('INSERT INTO realisations VALUES (NULL,:real_name,:real_pres, :dateCreated, :userId,:picture)');
+            // var_dump($values);
+            /** 3 : executer la requête */
+            $sth->execute($values);
 
-// if(array_key_exists('real_name',$_POST))
-// {
+            /** FLASHBAG
+             * On ajoute un flashbag pour informé de l'ajout d'un utilisateur sur la page listUser
+             * Le flashBag (notion connue avec le framework symfony) est une variable session qui accueille des messages 
+             * à afficher lors de la prochaine requête (souvent automatique avec une redirection). Lors de l'affichage de la prochaine vue le flashbag sera analysé
+             * puis son contenu affiché et enfin il sera vidé ! 
+             * */
+            $flashbag->add('Article ajouté avec succès !');
 
+            header('Location:indexAdmin.php');
+            exit();
+        }
+    }
 
-//     /** SI pas d'erreurs on fini la préparation des données et on save ! */
-//     if(empty($flashbag))
-//     { 
-        
-//         //On déplace le fichier transmis pour l'image d'entêt de l'article dans le répertoire upload/articles/ 
-//         if (isset($_FILES["picture"]) && $_FILES["picture"]["error"] == UPLOAD_ERR_OK) 
-//         {
-//             $tmp_name = $_FILES["picture"]["tmp_name"];
-//             $name = basename(time().'_'.$_FILES["picture"]["name"]);
-//             if(move_uploaded_file($tmp_name, REP_BLOG.REP_UPLOAD.'articles/'.$name))
-//                 //$values['picture'] = $name;
-//             else
-//                 $values['picture'] = NULL;
-//         }
-//         else{
-//             $values['picture'] = NULL;
-//         }
-
-//     }
-// }    
-$view = 'tpl/addRealView.phtml';
 
 include('adminLayout.phtml');
-
-
-
-if(isset($name) && isset($pres) && isset($photo1)){
-    addrealisation($name,$pres,$photo1,$photo2,$photo3);
-}
 
