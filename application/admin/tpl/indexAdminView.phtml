@@ -1,4 +1,4 @@
-  <div class="w-75 p-3 mx-auto mt-2 border border-success">
+   <div class="w-75 p-3 mx-auto mt-2 border border-success">
   <h1 class="display-4">Réalisations</h1>
             <div class="table-wrapper-scroll-y">
 
@@ -8,7 +8,9 @@
                   <th scope="col">#</th>
                   <th scope="col">Nom</th>
                   <th scope="col">Description</th>
-                  <th scope="col">Pièce Jointe</th>
+                  <th scope="col">Photo 1</th>
+                  <th scope="col">Photo 2</th>
+                  <th scope="col">Photo 3</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -18,7 +20,9 @@
                               <td><?=$real['idrealisations']?></td>
                               <td><?=$real['real_name']?></td>
                               <td><?=$real['real_pres']?></td>
-                              <td><?=$real['real_photos']?></td>
+                              <td><?=$real['real_date']?></td>
+                              <td><?=$real['real_user']?></td>
+                              <td><?='<img src="'.$pathReals.$real['real_photo_1'].'">'?></td>
                           </tr>
                 <?php endforeach;?>
               </tbody>

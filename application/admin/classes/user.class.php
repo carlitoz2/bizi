@@ -2,8 +2,8 @@
 
 class User
 {
-    protected $_pseudo;
-    protected $_password;
+    public $_pseudo;
+    public $_password;
 
     function __construct($pseudo,$password){
         $this->_pseudo = $pseudo;
@@ -14,6 +14,8 @@ class User
 
     /**
      * Get the value of _password
+     * @param void
+     * @return string
      */ 
     public function get_password()
     {
@@ -35,6 +37,8 @@ class User
 
     /**
      * Get the value of _pseudo
+     * @param void
+     * @return string
      */ 
     public function get_pseudo()
     {

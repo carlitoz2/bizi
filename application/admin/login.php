@@ -27,7 +27,7 @@ $title = 'Se connecter';
 
 //Initialisation des erreurs à false
 if (isset($_SESSION['connect']) && $_SESSION['connect'] === true){
-    header('Location:addReal.php');
+    header('Location:indexAdmin.php');
     exit();
 }
     

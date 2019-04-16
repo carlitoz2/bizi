@@ -8,7 +8,7 @@ class Session
      * @param string $key String identifier.
      * @param mixed $value Single value or array of values to be written.
      * @return mixed Value or array of values written.
-     * @throws InvalidArgumentTypeException Session key is not a string value.
+     *
      */
     public function write($key, $value)
     {
@@ -88,7 +88,7 @@ class Session
             echo 'La clé doit être une chaîne';
             exit();
         }
-        self::_init();
+       
         unset($_SESSION[$key]);
     }
     
@@ -111,7 +111,6 @@ class Session
      */
     public static function dump()
     {
-        self::_init();
         echo nl2br(print_r($_SESSION));
     }
     /**

@@ -2,7 +2,7 @@
 
 require('model.php');
 
-
+$pathReals = 'uploads\img_reals';
 
 $reals =getRealisations();
 
